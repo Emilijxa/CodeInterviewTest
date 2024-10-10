@@ -4,7 +4,9 @@ import Modal from 'react-modal'
 import './Home.css'
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
 
-function Home() {
+    // manages states
+   
+function Home() { 
 
     const [ShowModal, setShowModal] = useState(false)
     const [users, setUsers] = useState([]);
@@ -17,6 +19,8 @@ function Home() {
         fetchUsers();
     }, []);
 
+    // get request that fetches users
+
     const fetchUsers = async () => {
         try {
             const response = await axios.get('http://localhost:3001/users');
@@ -26,6 +30,8 @@ function Home() {
             console.error('Error fetching users:', error);
         }
     };
+
+     // delete request 
 
     const handleDelete = async (id) => {
         try {
@@ -37,6 +43,8 @@ function Home() {
         }
     };
 
+     // handles edit 
+
     const handleEdit = (user) => {
         setUserId(user.id);
         setUserName(user.username);
@@ -44,6 +52,8 @@ function Home() {
         setEditUserId(user.id);
         openModal();
     };
+
+    // reset form fields when submitting or canceling
 
     const resetForm = () => {
         setUserName('');
@@ -59,6 +69,8 @@ function Home() {
         resetForm();
         setShowModal(false);
     };
+
+    // put request
 
     const handleUpdate = async () => {
         axios.put(`http://localhost:3001/users/${userId}`, {
@@ -76,6 +88,8 @@ function Home() {
           console.error('Error updating user:', error.response ? error.response.data : error.message);
         });
       };
+
+      // handles submit to create or update user
 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
@@ -98,6 +112,7 @@ function Home() {
             });
           }
     };
+
 
     return (
         <div className="user-management">
